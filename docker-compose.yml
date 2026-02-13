@@ -1,0 +1,15 @@
+services:
+  rag-api:
+    build: .
+    container_name: local-rag-api
+    ports:
+      - "8000:8000"
+    environment:
+      JWT_SECRET: "change-this-secret"
+      JWT_EXPIRE_MINUTES: "1440"
+      DEEPSEEK_API_KEY: "${DEEPSEEK_API_KEY:-}"
+      QWEN_API_KEY: "${QWEN_API_KEY:-}"
+    volumes:
+      - ./data:/app/data
+      - ./rag.db:/app/rag.db
+    restart: unless-stopped
